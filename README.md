@@ -38,6 +38,20 @@ Then in Claude Code:
 /plugin install /path/to/job-apply-plugin
 ```
 
+### Claude Desktop Installation
+
+Claude Desktop requires manual skill upload:
+
+1. **Download the ZIP file** from the [latest release](https://github.com/neonwatty/job-apply-plugin/releases/latest)
+
+2. **Open Claude Desktop** and go to **Settings**
+
+3. **Click "Upload skill"** and select the downloaded `.zip` file
+
+4. **Restart Claude Desktop** to load the skill
+
+> **Note:** Claude Desktop does not have marketplace support. You'll need to manually download updates from the releases page.
+
 ## Usage
 
 ### First Time Setup
