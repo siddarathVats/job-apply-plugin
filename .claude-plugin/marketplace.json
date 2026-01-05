@@ -1,0 +1,17 @@
+{
+  "name": "neonwatty-plugins",
+  "description": "Claude Code plugins by Jeremy Watt",
+  "owner": {
+    "name": "Jeremy Watt",
+    "github": "neonwatty"
+  },
+  "plugins": [
+    {
+      "name": "job-apply",
+      "source": ".",
+      "description": "AI-powered job application assistant for LinkedIn, Greenhouse, Ashby, and Workday",
+      "version": "1.0.0",
+      "tags": ["productivity", "job-search", "browser-automation"]
+    }
+  ]
+}
