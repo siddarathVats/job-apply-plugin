@@ -83,8 +83,8 @@ AI-powered job application assistant. Auto-fills applications on LinkedIn Easy A
 ## Installation
 
 ```bash
-claude plugin marketplace add neonwatty/job-apply-plugin
-claude plugin install job-apply@neonwatty-plugins
+claude plugin marketplace add siddarathVats/job-apply-plugin
+claude plugin install job-apply@siddarathvats-plugins
 ```
 
 ## Usage

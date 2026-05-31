@@ -1,19 +1,19 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "neonwatty-plugins",
-  "description": "Claude Code plugins by Jeremy Watt",
+  "name": "siddarathvats-plugins",
+  "description": "Claude Code plugins by Siddarath Vats (job-apply forked from neonwatty/job-apply-plugin by Jeremy Watt, MIT)",
   "owner": {
-    "name": "Jeremy Watt",
-    "github": "neonwatty"
+    "name": "Siddarath Vats",
+    "github": "siddarathVats"
   },
   "plugins": [
     {
       "name": "job-apply",
       "source": {
         "source": "github",
-        "repo": "neonwatty/job-apply-plugin"
+        "repo": "siddarathVats/job-apply-plugin"
       },
-      "description": "AI-powered job application assistant for LinkedIn, Greenhouse, Ashby, Lever, Rippling, and Workday",
+      "description": "Job application + founder outreach assistant: auto-apply on LinkedIn/Greenhouse/Ashby/Lever/Rippling/Workday, source funded-startup hiring, and run researched cold outreach.",
       "version": "1.0.0",
       "category": "productivity"
     }
