@@ -11,3 +11,18 @@ Thumbs.db
 
 # Test files
 *.test.md
+
+# Personal / generated data — NEVER commit (privacy: contains real people's info)
+outreach-dossiers/
+**/evidence/*.json
+*.env
+.env*
+secrets.*
+*-token*
+*credentials*
+# Local run artifacts (these normally live in ~/, listed here in case run in-repo)
+.claude-job-profile.json
+.claude-outreach-log*
+.claude-funded-startups/
+.claude-feed-scans/
+.claude-job-searches/
