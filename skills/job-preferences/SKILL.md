@@ -6,7 +6,7 @@ allowed-tools: Read, Write
 
 # Job Preferences
 
-A Claude Code skill for managing persistent job search preferences. Set your target titles, salary floor, remote preference, and exclusion filters once — `/job-search` and other skills reuse them automatically.
+A Claude Code skill for managing persistent job search preferences. Set your target titles, salary floor, remote preference, and exclusion filters once, `/job-search` and other skills reuse them automatically.
 
 ---
 
@@ -24,11 +24,11 @@ Look for the `preferences` key in the profile.
 
 > **Your current job search preferences:**
 >
-> - **Target titles**: Staff AI Engineer, Principal ML Engineer
-> - **Min base salary**: $250K
-> - **Remote preference**: Remote only
-> - **Exclude patterns**: junior, associate, intern, entry level
-> - **Default time range**: last week
+>, **Target titles**: Staff AI Engineer, Principal ML Engineer
+>, **Min base salary**: $250K
+>, **Remote preference**: Remote only
+>, **Exclude patterns**: junior, associate, intern, entry level
+>, **Default time range**: last week
 >
 > Would you like to update any of these?
 
@@ -105,12 +105,12 @@ Display the saved preferences and confirm:
 
 ## Updating Preferences
 
-When the user runs `/job-preferences` and preferences already exist, show current values and let them update selectively. Only overwrite the fields they change — keep the rest intact.
+When the user runs `/job-preferences` and preferences already exist, show current values and let them update selectively. Only overwrite the fields they change, keep the rest intact.
 
 ---
 
 ## Safety Rules
 
-1. **Never overwrite non-preference data** — only read/write the `preferences` key in the profile JSON
-2. **Preserve existing profile** — `/job-apply` stores resume data in the same file; never delete or modify those keys
-3. **No defaults without user input** — always ask the user, never assume values
+1. **Never overwrite non-preference data**, only read/write the `preferences` key in the profile JSON
+2. **Preserve existing profile**, `/job-apply` stores resume data in the same file; never delete or modify those keys
+3. **No defaults without user input**, always ask the user, never assume values

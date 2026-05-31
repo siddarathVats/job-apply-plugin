@@ -19,7 +19,7 @@ The validator strips em-dashes, en-dashes, and any phrase in the **Anti-AI tells
 2. **Lead with what you bring, not what you need.** Every opener references something specific about their company or post. Every middle paragraph names a concrete contribution.
 3. **Length: 130 to 200 words for email.** Not 80, not 300. Tight enough to read in 20 seconds, dense enough to prove research.
 4. **Closer depends on the step. First touch = NO meeting CTA.** In a connection-request note or first DM, do NOT ask for a coffee chat / call and do NOT end on what you build ("that's what I build" reads sales-y). Close **warm and curiosity-first, oriented toward THEM**: "Would love to connect and explore this with you", "Looking forward to connecting and learning more about what you're building." A single soft chat invite ("happy to chat about {their_specific_thing}, no pressure") is acceptable **only in a later-step email or a post-accept DM**, never in the first cold touch. Never two CTAs.
-5. **DEEP RESEARCH IS MANDATORY before drafting (the single biggest reply-rate driver).** Research the *entirety* of the person, 4 layers in priority order: (1) their **product** (site, features, blog, launches, sandbox); (2) their **posts & comments** — their own LinkedIn/X activity (richest pain signal: echo their own words/stats back); (3) **them** (background, prior ventures, a genuine rapport hook); (4) their **team** if possible (co-founders/engineers → reveals stack + where help fits). Open the note on a pain only this research surfaces. Generic = ignored; deeply-researched + pain-first = instant replies (proof: Geir/DeepXL replied within hours).
+5. **DEEP RESEARCH IS MANDATORY before drafting (the single biggest reply-rate driver).** Research the *entirety* of the person, 4 layers in priority order: (1) their **product** (site, features, blog, launches, sandbox); (2) their **posts & comments**, their own LinkedIn/X activity (richest pain signal: echo their own words/stats back); (3) **them** (background, prior ventures, a genuine rapport hook); (4) their **team** if possible (co-founders/engineers → reveals stack + where help fits). Open the note on a pain only this research surfaces. Generic = ignored; deeply-researched + pain-first = instant replies (proof: Geir/DeepXL replied within hours).
 6. **LinkedIn connection-request notes carry NO portfolio/work URL and NO meeting CTA.** The note's whole character budget goes to the researched pain-hook + a warm, curiosity-first close, never a link or a "let's chat" ask. The recipient sees the profile after accepting. Portfolio/CV links and chat invites belong only in **emails** and **post-accept DMs** (where there's room and they've already engaged). Do NOT spend note characters on `{github_or_portfolio_url}`.
 
 ---
@@ -32,9 +32,9 @@ These patterns scream "LLM wrote this." Validator must catch and fix every one.
 
 | Banned | Replacement |
 |--------|-------------|
-| `—` (em-dash, U+2014) | period + capital letter, OR comma, OR `(...)` parens depending on context |
-| `–` (en-dash, U+2013) | hyphen or period (same logic) |
-| ` - ` (hyphen used as sentence break) | comma or period |
+| em-dash (U+2014) | period + capital letter, OR comma, OR `(...)` parens depending on context |
+| en-dash (U+2013) | hyphen or period (same logic) |
+| spaced hyphen used as a sentence break | comma or period |
 | `; ` between independent clauses | period + new sentence |
 | Triple-period `...` mid-sentence | comma or just remove |
 
@@ -64,10 +64,10 @@ foster (as verb meaning encourage)
 ### Structural tells
 
 - Three-bullet "I bring X, Y, Z" lists with parallel verb starts (validator rewrites to vary sentence structure)
-- Closing line "I look forward to hearing from you" — replace with something specific
-- Opening with "As a [role] with [years] years of experience..." — replace with reference to their work
-- Symmetric sentences ("Your X is impressive. My Y is impressive.") — break the parallelism
-- Numbered or bulleted lists in DM bodies — DMs are pure prose
+- Closing line "I look forward to hearing from you", replace with something specific
+- Opening with "As a [role] with [years] years of experience...", replace with reference to their work
+- Symmetric sentences ("Your X is impressive. My Y is impressive."), break the parallelism
+- Numbered or bulleted lists in DM bodies, DMs are pure prose
 
 ### Rewrite rule
 
@@ -123,7 +123,7 @@ Would 15 min next week make sense?{also_emailed_clause}
 
 ### Body, Variant C: Connection-request note (~200-300 char cap, pain-first, NO link, NO meeting CTA)
 
-Use for the connection-request note specifically. The cap forces brevity, so every character earns its place: open on a *specific* pain/focus that the 4-layer deep research (bedrock rule 5) surfaced, then close **warm and curiosity-first** — no link, no coffee-chat/call ask, and never on "that's what I build" (Bedrock rules 2-3, 6). No generic "love to connect and trade notes."
+Use for the connection-request note specifically. The cap forces brevity, so every character earns its place: open on a *specific* pain/focus that the 4-layer deep research (bedrock rule 5) surfaced, then close **warm and curiosity-first**, no link, no coffee-chat/call ask, and never on "that's what I build" (Bedrock rules 2-3, 6). No generic "love to connect and trade notes."
 
 ```
 Hi {first_name}, the {specific_pain_or_focus_from_their_post_or_product} side of {company} is exactly the kind of problem I find most interesting ({one_keyword_overlap}). Would love to connect and explore it with you.
@@ -132,7 +132,7 @@ Hi {first_name}, the {specific_pain_or_focus_from_their_post_or_product} side of
 Filled example (Geir/DeepXL style): "Hi Geir, the anticipate-not-just-detect angle on AI-manipulated docs is exactly the fraud problem I find most interesting (multimodal + eval). Would love to connect and explore it with you."
 
 Rules for this variant:
-- `{specific_pain_or_focus_from_their_post_or_product}` must come from real research (their post/comment/product), not a guess — echo their own framing where possible.
+- `{specific_pain_or_focus_from_their_post_or_product}` must come from real research (their post/comment/product), not a guess, echo their own framing where possible.
 - NO `{github_or_portfolio_url}`, NO `{short_also_emailed_clause}` with a link, NO meeting CTA. Keep it pure: pain hook + warm curiosity-first close.
 - Close oriented toward THEM ("Would love to connect and explore this", "Looking forward to connecting and learning more about what you're building"), never on what the sender builds/sells and never "let me show you my portfolio."
 
@@ -140,7 +140,7 @@ Rules for this variant:
 
 Use when `outreachType = service`. The sender is offering to build / automate / recreate something the poster has explicitly described as a pain. End-goal is a paid build; free POC is the wedge.
 
-Job-pitch keywords (`hiring`, `role`, `position`, `opening`) are **forbidden** in this variant — validator strips them. Same with overt pricing talk (`$`, `rates`, `budget`, `quote`) — also forbidden in first touch.
+Job-pitch keywords (`hiring`, `role`, `position`, `opening`) are **forbidden** in this variant, validator strips them. Same with overt pricing talk (`$`, `rates`, `budget`, `quote`), also forbidden in first touch.
 
 ```
 Hi {first_name}, your post on {pain_or_topic_from_post} landed for me. The bit about {specific_pain_quote} is exactly the kind of thing I build small AI / automation systems for.
@@ -152,7 +152,7 @@ Happy to scope a free POC focused on {narrow_subset_of_their_pain} so you can de
 {sender_first_name} | {github_or_portfolio_url}
 ```
 
-Fits ~500-650 chars filled. The "free POC" line is the load-bearing wedge — never drop it.
+Fits ~500-650 chars filled. The "free POC" line is the load-bearing wedge, never drop it.
 
 ### Body, Variant D: Partnership (no job pitch)
 
@@ -382,7 +382,7 @@ The hook must reference the *project or topic* in their post, not their *company
 | `{narrow_subset_of_their_pain}` | Service only, a thin slice of the pain that can be POC'd in ~1 week | "the input-change re-run problem in PVsyst, scripted in Python" |
 | `{service_pitch_opener_hook}` | Service only, 1-2 sentences referencing the pain + how the sender can build for it | "Your post on PV simulation tooling stuck in 2015 lined up with exactly the kind of agentic-pipeline work I just shipped for an alumni RAG platform." |
 | `{poc_scope_paragraph}` | Service only, 2-3 sentences describing concrete POC deliverable + timebox | "I'd take one common SAM/PVsyst run, wrap it in a Python pipeline that re-executes on any input change, and ship a tiny dashboard. ~1 week, you keep the code." |
-| `{evidence_1}`, `{evidence_2}` | Service only, two distinct shipped projects with outcomes | "Re-architected EZER vector search from OpenSearch to pgvector — sub-second similarity at lower infra cost" |
+| `{evidence_1}`, `{evidence_2}` | Service only, two distinct shipped projects with outcomes | "Re-architected EZER vector search from OpenSearch to pgvector, sub-second similarity at lower infra cost" |
 | `{stack_for_this_poc}` | Service only, the specific stack pieces the sender would use for this POC | "Python, LangGraph, FastAPI, pgvector" |
 | `{poc_timebox}` | Service only, the explicit time commitment for the free POC | "~1 week" |
 

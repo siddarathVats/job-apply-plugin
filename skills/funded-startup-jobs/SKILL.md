@@ -26,7 +26,7 @@ The user can invoke this skill with arguments that select sources. If no argumen
 | `vc-boards` | VC job boards (Tier 1 in `vc-sources.md`) |
 | `funding-search` | LinkedIn content search for "just raised" + "hiring" |
 | `news` | WebSearch on Crunchbase / TechCrunch funding announcements |
-| `<URL>` | Single LinkedIn post URL pasted by the user — fast-path mode |
+| `<URL>` | Single LinkedIn post URL pasted by the user, fast-path mode |
 | `all` | All four sources above (default) |
 
 ### Step 3: Show Active Config
@@ -44,14 +44,14 @@ Funded-Startup Discovery
 
 ## Phase 2a: User-Pasted LinkedIn Post (fast-path)
 
-If the invocation includes a `linkedin.com/posts/` or `linkedin.com/feed/update/` URL, skip Phase 2b–2e and:
+If the invocation includes a `linkedin.com/posts/` or `linkedin.com/feed/update/` URL, skip Phase 2b, 2e and:
 
 1. Open the URL via Chrome MCP (`tabs_create_mcp` + `navigate`).
 2. Use `read_page` to extract: poster name, poster headline, post body, any company mentions, any links.
 3. Parse the post body for:
-   - Company name(s) — usually after "join", "we're hiring at", "@<company>"
-   - Funding stage/amount — "Series A", "$10M", "seed"
-   - Role hints — "engineer", "ML", "PM"
+   - Company name(s), usually after "join", "we're hiring at", "@<company>"
+   - Funding stage/amount, "Series A", "$10M", "seed"
+   - Role hints, "engineer", "ML", "PM"
    - Application URL or contact (apply link, founder email)
 4. Output a single startup record (see Schema below) with `source: "linkedin-post-paste"` and `sourceUrl: <pasted URL>`.
 5. Jump to Phase 4 (enrichment).
@@ -83,12 +83,12 @@ Load `vc-sources.md` Tier 2 list. For each VC (cap at 10 per run to avoid Linked
 
 Load `vc-sources.md` Tier 1 list. For each board (cap at 8 per run):
 
-1. Use `WebFetch` first — most VC boards render server-side.
+1. Use `WebFetch` first, most VC boards render server-side.
 2. If `WebFetch` returns no role data (JS-rendered SPA), fall back to Playwright (`browser_navigate` + `browser_snapshot`).
 3. Search the page for the user's `targetTitles`. Capture: company, role title, location, link, posted-date if available.
 4. Filter by:
-   - `remotePreference` — match "remote", "anywhere", "us-remote" in the role's location
-   - `excludePatterns` — drop any role matching these
+   - `remotePreference`, match "remote", "anywhere", "us-remote" in the role's location
+   - `excludePatterns`, drop any role matching these
    - posted within `defaultTimeRange`
 5. Cap: 10 roles per board, 50 total.
 
@@ -120,7 +120,7 @@ Load `vc-sources.md` Tier 1 list. For each board (cap at 8 per run):
 
 ### Dedupe
 
-Normalize company names (lowercase, strip "Inc.", "Labs", ", Inc"). If two records share a normalized name, merge them — keep the earliest funding signal, union the roles, list all `sourceUrl`s.
+Normalize company names (lowercase, strip "Inc.", "Labs", ", Inc"). If two records share a normalized name, merge them, keep the earliest funding signal, union the roles, list all `sourceUrl`s.
 
 ### Enrich (best-effort, soft-fail)
 
@@ -129,7 +129,7 @@ For each unique company:
 1. **Careers page**: if we don't already have one, try `WebSearch` for `"<company>" careers site:<company>.com`.
 2. **Funding history**: if missing stage/amount, WebSearch `"<company>" "Series" OR "seed" raised`.
 3. **Headcount estimate**: WebSearch `"<company>" linkedin employees` (capture range like "11-50").
-4. **Founder/CXO**: capture if surfaced from the post; otherwise leave blank — `/cold-outreach` will resolve later.
+4. **Founder/CXO**: capture if surfaced from the post; otherwise leave blank, `/cold-outreach` will resolve later.
 
 **Time-box enrichment**: max 5 seconds per company. Skip on timeout.
 
@@ -190,7 +190,7 @@ Cap at 100. Sort descending.
 
 ```
 ============================================================
-  Funded-Startup Jobs — 2026-05-14
+  Funded-Startup Jobs, 2026-05-14
 ============================================================
   Sources: VC feeds (12), VC boards (28), Funding search (9), News (6)
   Total unique companies: 38 | After scoring: 22 with score >= 50
@@ -200,8 +200,7 @@ Score | Company         | Stage  | Roles                              | Source  
 ----- | --------------- | ------ | ---------------------------------- | -------------- | ----------
   91  | Acme AI         | A $15M | Founding ML Eng (Remote US)        | a16z feed      | Jane Doe
   87  | Bolt Robotics   | Seed   | ML Eng, Data Sci (Remote)          | YC WaaS        | Sam Ko
-  74  | Verdant ML      | A $20M | AI Engineer (Remote US)            | Sequoia board  | —
-  ...
+  74  | Verdant ML      | A $20M | AI Engineer (Remote US)            | Sequoia board  |...
 
 ============================================================
   Saved: ~/.claude-funded-startups/funded-2026-05-14.md
@@ -217,7 +216,7 @@ Include for each company:
 - Role list with links
 - Source URLs (post URLs, board URLs)
 - Founder block (if known)
-- Post snippet (≤30 words, original wording preserved — short enough to be fair-use)
+- Post snippet (≤30 words, original wording preserved, short enough to be fair-use)
 
 ### Hand-off Prompt
 
@@ -232,12 +231,12 @@ If the user picks one, hand off to `/cold-outreach` with the company record as i
 ## Safety Rules
 
 1. **Never enter credentials.** Stop if login is required.
-2. **LinkedIn rate-limiting** — minimum 2-3 second delays between page loads. Stop after 3 consecutive empty/blocked responses and report.
+2. **LinkedIn rate-limiting**, minimum 2-3 second delays between page loads. Stop after 3 consecutive empty/blocked responses and report.
 3. **No bulk-scrape**. Caps in Phase 2 are hard limits, not suggestions.
-4. **Copyright** — when storing post snippets, keep them ≤30 words and never reproduce full posts. Always store the source URL alongside.
-5. **Graceful degradation** — if any source fails, skip and continue. Report at the end.
-6. **Verify before recommending** — if the skill surfaces a company, confirm the careers page actually loads before claiming the role is open.
-7. **Honor profile preferences strictly** for `excludePatterns` — these are hard filters, not soft signals.
+4. **Copyright**, when storing post snippets, keep them ≤30 words and never reproduce full posts. Always store the source URL alongside.
+5. **Graceful degradation**, if any source fails, skip and continue. Report at the end.
+6. **Verify before recommending**, if the skill surfaces a company, confirm the careers page actually loads before claiming the role is open.
+7. **Honor profile preferences strictly** for `excludePatterns`, these are hard filters, not soft signals.
 
 ---
 

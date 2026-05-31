@@ -38,19 +38,19 @@ Then **STOP**. Do not prompt the user to set preferences inline.
 
 The user may pass overrides when invoking the skill:
 
-- **Time range**: `last week`, `2 weeks`, `month` — overrides `defaultTimeRange`
-- **Source filter**: `linkedin`, `hn`, `twitter`, or any combination — limits which sources to query (default: all three)
+- **Time range**: `last week`, `2 weeks`, `month`, overrides `defaultTimeRange`
+- **Source filter**: `linkedin`, `hn`, `twitter`, or any combination, limits which sources to query (default: all three)
 - **Keywords**: any additional keywords to use alongside `targetTitles`
 
 Display the active search config before proceeding:
 
 > **Search config:**
-> - Titles: Staff AI Engineer, Principal ML Engineer
-> - Salary floor: $250K
-> - Remote: Remote only
-> - Exclude: junior, associate, intern, entry level
-> - Time range: last week
-> - Sources: LinkedIn, HN, Twitter
+>, Titles: Staff AI Engineer, Principal ML Engineer
+>, Salary floor: $250K
+>, Remote: Remote only
+>, Exclude: junior, associate, intern, entry level
+>, Time range: last week
+>, Sources: LinkedIn, HN, Twitter
 
 ---
 
@@ -61,7 +61,7 @@ Display the active search config before proceeding:
 1. Get browser context using `tabs_context_mcp`
 2. Create a new tab using `tabs_create_mcp`
 3. Navigate to `https://www.linkedin.com/jobs/`
-4. Verify user is logged in — use `read_page` to check for profile menu. If not logged in, say: "Please log into LinkedIn in this browser tab, then let me know when you're ready." and **wait**.
+4. Verify user is logged in, use `read_page` to check for profile menu. If not logged in, say: "Please log into LinkedIn in this browser tab, then let me know when you're ready." and **wait**.
 
 ### Build Search URL
 
@@ -96,8 +96,8 @@ For each job card:
 2. Click into job detail page using `computer` with left_click
 3. Wait 2-3 seconds for detail page to load
 4. Extract: title, company, location, posted date, applicant count, work type, apply method
-5. Look for connection indicators — use `find` with query "connections work here" or "connections at"
-6. Look for hiring team — use `find` with query "Meet the hiring team" or "hiring manager"
+5. Look for connection indicators, use `find` with query "connections work here" or "connections at"
+6. Look for hiring team, use `find` with query "Meet the hiring team" or "hiring manager"
 7. If hiring manager found, extract name, title, profile URL
 8. Store result, navigate back to results list
 9. **2-3 second delay** between each job
@@ -124,7 +124,7 @@ If no thread found for the current month, try the previous month. If still nothi
 ### Fetch Comments via Firebase API
 
 3. Fetch the thread: `curl -s "https://hacker-news.firebaseio.com/v0/item/{THREAD_ID}.json"`
-4. Parse the `kids` array — these are top-level comment IDs (job postings)
+4. Parse the `kids` array, these are top-level comment IDs (job postings)
 5. Fetch each comment (up to 50): `curl -s "https://hacker-news.firebaseio.com/v0/item/{COMMENT_ID}.json"`
 6. **0.5 second delay** between API calls
 
@@ -147,7 +147,7 @@ For each comment:
 ### Filter Against Preferences
 
 Skip comments that:
-- Don't match any `targetTitles` (fuzzy match — "AI Engineer" matches "Staff AI Engineer")
+- Don't match any `targetTitles` (fuzzy match, "AI Engineer" matches "Staff AI Engineer")
 - Match any `excludePatterns`
 - Don't meet `remotePreference` (if "remote only", skip non-remote postings)
 - Fall below `minBaseSalary` (if salary is listed)
@@ -160,7 +160,7 @@ Skip comments that:
 
 1. Use existing browser context (or create new tab)
 2. Navigate to `https://x.com/search`
-3. Verify logged in — use `read_page` to check for profile avatar or compose button. If not logged in, **skip Twitter entirely** and continue with other sources. Report: "Skipped Twitter — not logged in."
+3. Verify logged in, use `read_page` to check for profile avatar or compose button. If not logged in, **skip Twitter entirely** and continue with other sources. Report: "Skipped Twitter, not logged in."
 
 ### Build Search Query
 
@@ -185,11 +185,11 @@ Map time range to `since:` date:
 
 ### Filter Against Preferences
 
-Apply the same filtering as HN — title match, exclude patterns, remote, salary if mentioned.
+Apply the same filtering as HN, title match, exclude patterns, remote, salary if mentioned.
 
 ### Graceful Failure
 
-If Twitter is inaccessible, rate-limited, or not logged in — skip entirely and continue. Report which sources succeeded and failed at the end.
+If Twitter is inaccessible, rate-limited, or not logged in, skip entirely and continue. Report which sources succeeded and failed at the end.
 
 ---
 
@@ -259,7 +259,7 @@ Score | Source   | Title                        | Company       | Salary   | Loc
   92  | LinkedIn | Staff AI Engineer            | Acme Corp     | $280K    | Remote          | Hiring mgr, 2 connections
   87  | LinkedIn | Principal ML Engineer        | TechStart     | $300K    | SF (Remote OK)  | 5 connections, Easy Apply
   81  | HN       | AI Engineer (Staff)          | CoolStartup   | $250-300K| Remote          | Salary listed, Apply URL
-  76  | Twitter  | Head of AI                   | DataCo        | —        | Remote          | 120 likes
+  76  | Twitter  | Head of AI                   | DataCo        |, | Remote          | 120 likes
   ...
 
 ============================================================
@@ -275,7 +275,7 @@ Score | Source   | Title                        | Company       | Salary   | Loc
 Save full details to `~/.claude-job-searches/search-{timestamp}.md`:
 
 ```markdown
-# Job Search Results — 2026-02-28
+# Job Search Results, 2026-02-28
 
 ## Search Parameters
 - Titles: Staff AI Engineer, Principal ML Engineer
@@ -286,17 +286,17 @@ Save full details to `~/.claude-job-searches/search-{timestamp}.md`:
 
 ## Results (ranked by score)
 
-### 1. Staff AI Engineer — Acme Corp (Score: 92)
+### 1. Staff AI Engineer, Acme Corp (Score: 92)
 - **Source**: LinkedIn
 - **Location**: Remote
 - **Salary**: $280K
 - **Posted**: 2 days ago | 45 applicants
-- **Hiring Manager**: Jane Smith (Engineering Manager) — linkedin.com/in/janesmith
+- **Hiring Manager**: Jane Smith (Engineering Manager), linkedin.com/in/janesmith
 - **Connections**: 2 (John Doe, Sarah Lee)
 - **Apply**: Easy Apply
 - **URL**: https://linkedin.com/jobs/view/123456
 
-### 2. AI Engineer (Staff) — CoolStartup (Score: 81)
+### 2. AI Engineer (Staff), CoolStartup (Score: 81)
 - **Source**: Hacker News
 - **Location**: Remote
 - **Salary**: $250-300K
@@ -314,10 +314,10 @@ If any results scored 70+, ask the user:
 
 > **{N} jobs scored 70+.** Would you like me to add them to your application queue at `~/Desktop/jobs/application_queue.md`?
 
-If confirmed, append to `application_queue.md` under a new "## Tier 3 — Auto-Discovered" section:
+If confirmed, append to `application_queue.md` under a new "## Tier 3, Auto-Discovered" section:
 
 ```markdown
-## Tier 3 — Auto-Discovered
+## Tier 3, Auto-Discovered
 
 | Score | Source | Role | Company | URL | Status |
 |-------|--------|------|---------|-----|--------|
@@ -331,18 +331,18 @@ If confirmed, append to `application_queue.md` under a new "## Tier 3 — Auto-D
 
 ## Safety Rules
 
-1. **Never enter credentials** — if login is required, stop and instruct user to log in manually
-2. **Never click Apply** — this skill is for searching only, not applying
-3. **Never create accounts** — stop and inform user if account creation is required
+1. **Never enter credentials**, if login is required, stop and instruct user to log in manually
+2. **Never click Apply**, this skill is for searching only, not applying
+3. **Never create accounts**, stop and inform user if account creation is required
 4. **Respect rate limits per source**:
    - LinkedIn: 2-3 second delays between page loads
    - HN Firebase API: 0.5 second delays between requests
    - Twitter: 2-3 second delays between interactions
 5. **Max results per source**: LinkedIn 25, HN 50 comments, Twitter 20 tweets
-6. **Graceful degradation** — if any source fails, skip it and continue with the others. Report which sources succeeded and which failed at the end.
+6. **Graceful degradation**, if any source fails, skip it and continue with the others. Report which sources succeeded and which failed at the end.
 7. **Never modify application_queue.md without user confirmation**
-8. **HN Firebase API only** — never scrape the Hacker News website directly. Always use `https://hacker-news.firebaseio.com/v0/` endpoints.
-9. **Handle errors gracefully** — if a job page fails to load, skip and continue
+8. **HN Firebase API only**, never scrape the Hacker News website directly. Always use `https://hacker-news.firebaseio.com/v0/` endpoints.
+9. **Handle errors gracefully**, if a job page fails to load, skip and continue
 
 ---
 

@@ -16,7 +16,7 @@ When this skill is invoked, first check if a profile exists at `~/.claude-job-pr
 
 > Welcome to the Job Application Assistant! I'll help you fill out job applications on LinkedIn, Greenhouse, and Workday.
 >
-> First, I need to set up your profile. This is a one-time process — your information will be saved for future applications.
+> First, I need to set up your profile. This is a one-time process, your information will be saved for future applications.
 >
 > **Please provide the path to your resume file** (PDF, DOCX, or TXT).
 >
@@ -29,9 +29,9 @@ Then wait for the user to provide the path before proceeding with profile extrac
 > Welcome back! Your profile is loaded from `~/.claude-job-profile.json`.
 >
 > **Provide a job URL** and I'll help you apply. For example:
-> - LinkedIn: `https://www.linkedin.com/jobs/view/123456789`
-> - Greenhouse: `https://boards.greenhouse.io/company/jobs/123`
-> - Workday: `https://company.wd5.myworkdayjobs.com/jobs/job/123`
+>, LinkedIn: `https://www.linkedin.com/jobs/view/123456789`
+>, Greenhouse: `https://boards.greenhouse.io/company/jobs/123`
+>, Workday: `https://company.wd5.myworkdayjobs.com/jobs/job/123`
 >
 > Or say **"reset profile"** if you want to update your information from a new resume.
 
@@ -54,11 +54,11 @@ This skill uses **two browser automation tools** together because each has capab
 
 | Capability | Chrome MCP | Playwright MCP |
 |---|---|---|
-| Authenticated sessions (LinkedIn) | Yes | No — runs a separate browser with no login |
-| File uploads | No — opens OS file picker that can't be controlled | Yes — `setInputFiles` and `browser_file_upload` |
-| Iframe interaction | Limited — can't reliably reach iframe content | Yes — snapshots include iframe elements transparently |
-| JavaScript injection | Yes — `javascript_tool` | Yes — `browser_evaluate` and `browser_run_code` |
-| Dropdown/combobox interaction | Limited | Yes — `browser_fill_form` and `browser_click` |
+| Authenticated sessions (LinkedIn) | Yes | No, runs a separate browser with no login |
+| File uploads | No, opens OS file picker that can't be controlled | Yes, `setInputFiles` and `browser_file_upload` |
+| Iframe interaction | Limited, can't reliably reach iframe content | Yes, snapshots include iframe elements transparently |
+| JavaScript injection | Yes, `javascript_tool` | Yes, `browser_evaluate` and `browser_run_code` |
+| Dropdown/combobox interaction | Limited | Yes, `browser_fill_form` and `browser_click` |
 
 ### Tool Routing Rules
 
@@ -78,7 +78,7 @@ This skill uses **two browser automation tools** together because each has capab
 ### The Handoff Pattern
 
 1. **Chrome MCP** navigates to the LinkedIn job listing (authenticated)
-2. **Chrome MCP** clicks Apply — if it's an external application, captures the external URL via JavaScript interception
+2. **Chrome MCP** clicks Apply, if it's an external application, captures the external URL via JavaScript interception
 3. **Playwright MCP** opens the captured URL and fills the form, uploads files, and submits
 
 ---
@@ -101,7 +101,7 @@ window.open = function(url, target, features) {
 // Step 2: Click the Apply button
 document.querySelector('button.jobs-apply-button').click();
 
-// Step 3: Read document.title — it will start with "CAPTURED:" followed by the URL
+// Step 3: Read document.title, it will start with "CAPTURED:" followed by the URL
 ```
 
 ### Pattern B: Link with `target="_blank"` (fallback)
@@ -176,10 +176,10 @@ If no profile exists at `~/.claude-job-profile.json`, or if the user requests a 
 5. Screenshot the review page before "Submit application"
 
 **Field patterns to look for:**
-- `input[name*="phone"]` - Phone number
-- `input[type="file"]` - Resume upload
-- `select`, `[role="listbox"]` - Dropdown questions
-- `[role="radio"]`, `[role="checkbox"]` - Multiple choice
+- `input[name*="phone"]`, Phone number
+- `input[type="file"]`, Resume upload
+- `select`, `[role="listbox"]`, Dropdown questions
+- `[role="radio"]`, `[role="checkbox"]`, Multiple choice
 
 ### Greenhouse
 
@@ -187,11 +187,11 @@ If no profile exists at `~/.claude-job-profile.json`, or if the user requests a 
 - Single long-form page with sections
 - Clear field labels
 - Often has "Add another" for work history/education
-- **Frequently embedded in iframes** on company career sites — Playwright handles this transparently
+- **Frequently embedded in iframes** on company career sites, Playwright handles this transparently
 
 **Approach (use Playwright MCP):**
 1. Navigate to URL with `browser_navigate`
-2. Use `browser_snapshot` to read full form — iframe content appears with `f54eXX` refs
+2. Use `browser_snapshot` to read full form, iframe content appears with `f54eXX` refs
 3. Fill from top to bottom using `browser_fill_form`
 4. **Phone country code**: Click the country code toggle → select "United States: +1" from the listbox → the phone field auto-formats with +1 prefix
 5. For work history sections:
@@ -212,14 +212,14 @@ If no profile exists at `~/.claude-job-profile.json`, or if the user requests a 
 **Characteristics:**
 - Simple single-page form
 - Fields: name, phone, email, location (combobox), LinkedIn URL, resume upload
-- Has both a resume upload field and a separate autofill file input — use the resume field, not the autofill one
+- Has both a resume upload field and a separate autofill file input, use the resume field, not the autofill one
 
 **Approach (use Playwright MCP):**
 1. Navigate to URL with `browser_navigate`
 2. Use `browser_snapshot` to read form structure
 3. Fill text fields with `browser_fill_form` (name, phone, email, LinkedIn URL)
 4. **Location combobox**: Type the location to trigger suggestions, then click the matching option
-5. **Resume upload**: Use `browser_run_code` with `page.locator('#_systemfield_resume').setInputFiles('/path/to/resume.pdf')` — target `#_systemfield_resume` specifically, not the autofill input
+5. **Resume upload**: Use `browser_run_code` with `page.locator('#_systemfield_resume').setInputFiles('/path/to/resume.pdf')`, target `#_systemfield_resume` specifically, not the autofill input
 6. Verify with `browser_snapshot`
 7. Submit
 
@@ -229,7 +229,7 @@ If no profile exists at `~/.claude-job-profile.json`, or if the user requests a 
 - Often hosted on the company's own domain (e.g., `company.com/careers/...?lever-source=LinkedIn`)
 - Form typically at the bottom of a long job description page
 - Text fields for name, email, phone, LinkedIn, etc.
-- Radio buttons for screening questions — often use custom overlays that intercept clicks
+- Radio buttons for screening questions, often use custom overlays that intercept clicks
 
 **Approach (use Playwright MCP):**
 1. Navigate to URL with `browser_navigate`
@@ -258,7 +258,7 @@ If no profile exists at `~/.claude-job-profile.json`, or if the user requests a 
 
 **Approach (use Playwright MCP):**
 1. Navigate to URL with `browser_navigate`
-2. **Upload resume first** — Rippling will auto-parse and fill fields
+2. **Upload resume first**, Rippling will auto-parse and fill fields
 3. Use `browser_snapshot` to see what was auto-filled
 4. Correct any mis-parsed fields with `browser_fill_form`
 5. **Location combobox**: Clear existing value, type the correct location, wait for dropdown, click match
@@ -270,7 +270,7 @@ If no profile exists at `~/.claude-job-profile.json`, or if the user requests a 
 **Characteristics:**
 - Multi-page wizard with heavy JavaScript
 - Non-standard UI components (custom dropdowns, date pickers)
-- Often requires account creation (STOP and inform user - do not create accounts)
+- Often requires account creation (STOP and inform user, do not create accounts)
 
 **Approach (use Playwright MCP):**
 1. If login/account creation required, STOP and inform user they must handle this
@@ -353,7 +353,7 @@ After filling current page:
 ### Reading Forms
 ```
 Use browser_snapshot to get the full accessibility tree, including iframe content.
-Iframe elements appear with refs like "f54eXX" — these refs work with all Playwright tools.
+Iframe elements appear with refs like "f54eXX", these refs work with all Playwright tools.
 ```
 
 ### Filling Fields
@@ -404,7 +404,7 @@ If a modal appears after upload, use browser_file_upload to complete it.
 Playwright handles iframes transparently.
 browser_snapshot shows iframe content with refs (e.g., "f54eXX").
 These refs work directly with browser_fill_form, browser_click, etc.
-No special handling needed — just use the refs from the snapshot.
+No special handling needed, just use the refs from the snapshot.
 ```
 
 ### Custom Radio Buttons
@@ -419,13 +419,13 @@ Pass the ref of the radio input element.
 
 ## Safety Rules
 
-1. **Never enter passwords** - If login required, stop and instruct user
-2. **Never create accounts** - Stop and inform user they must create accounts themselves
-3. **Never click Submit without confirmation** - Always take a snapshot and get explicit "yes"
-4. **Never enter payment information** - Some applications have optional premium features
-5. **Handle sensitive questions carefully** - Salary expectations, visa status, disability disclosure should be confirmed with user before filling
-6. **Always use Chrome MCP for LinkedIn** - Playwright cannot access authenticated sessions
-7. **Never store or pass login credentials between tools** - Each tool uses its own browser context
+1. **Never enter passwords**, If login required, stop and instruct user
+2. **Never create accounts**, Stop and inform user they must create accounts themselves
+3. **Never click Submit without confirmation**, Always take a snapshot and get explicit "yes"
+4. **Never enter payment information**, Some applications have optional premium features
+5. **Handle sensitive questions carefully**, Salary expectations, visa status, disability disclosure should be confirmed with user before filling
+6. **Always use Chrome MCP for LinkedIn**, Playwright cannot access authenticated sessions
+7. **Never store or pass login credentials between tools**, Each tool uses its own browser context
 
 ---
 

@@ -12,12 +12,12 @@ Finds a founder/CXO, drafts a personalized DM and email, optionally resolves the
 
 ## Bedrock outreach rules (apply to every draft, override template defaults)
 
-These reflect what actually earns replies — and what reads as rushed or AI-generated:
+These reflect what actually earns replies, and what reads as rushed or AI-generated:
 
 1. **Pain-first, researched opener.** Open on a specific pain/focus that only real research surfaces (their own post, a stat they quote, their exact product framing). Never generic flattery ("love what you're building").
-2. **First touch carries NO link and NO meeting CTA.** In a connection-request note or the first DM/message, do NOT include a portfolio/resume/work URL, and do NOT ask for a coffee chat or call. Both read as rushed/pushy on a cold contact. Spend the space on substance. The link and the chat invite are *later-step* moves — fine in a follow-up email or a post-accept DM once there's rapport.
-3. **Close warm and curiosity-first — never on what you build/sell.** Do not end on "that's what I build" / "that reliability layer is what I build" (reads sales-y and presumptuous). End oriented toward THEM: e.g. "Would love to connect and explore this with you", "Looking forward to connecting and learning more about what you're building."
-4. **No em-dashes (—) and no "+" standing in for "and."** Both read as AI-generated. Use periods and commas. (The validator strips these, but write clean — don't rely on it.)
+2. **First touch carries NO link and NO meeting CTA.** In a connection-request note or the first DM/message, do NOT include a portfolio/resume/work URL, and do NOT ask for a coffee chat or call. Both read as rushed/pushy on a cold contact. Spend the space on substance. The link and the chat invite are *later-step* moves, fine in a follow-up email or a post-accept DM once there's rapport.
+3. **Close warm and curiosity-first, never on what you build/sell.** Do not end on "that's what I build" / "that reliability layer is what I build" (reads sales-y and presumptuous). End oriented toward THEM: e.g. "Would love to connect and explore this with you", "Looking forward to connecting and learning more about what you're building."
+4. **No em-dashes or en-dashes, and no "+" standing in for "and."** Both read as AI-generated. Use periods and commas. (The validator strips these, but write clean, don't rely on it.)
 5. **Stay grounded.** Every claim maps to the profile (`skills` / `workHistory`). No invented numbers, tools, or scope.
 6. **Honor the chosen tone** (Phase 1, Step 0) without breaking rules 1-5.
 
@@ -31,11 +31,11 @@ Before drafting, ask the user how they want to come across. Default to **Warm & 
 
 ```
 How should this read?
-  1. Warm & curious (recommended) — genuine interest in their work, low-pressure,
+  1. Warm & curious (recommended), genuine interest in their work, low-pressure,
      closes on "would love to connect and explore this"
-  2. Direct & concise — straight to the point, minimal warm-up
-  3. Peer / casual — builder-to-builder, informal
-  4. Formal / professional — measured and polished
+  2. Direct & concise, straight to the point, minimal warm-up
+  3. Peer / casual, builder-to-builder, informal
+  4. Formal / professional, measured and polished
 
 (Press enter for Warm & curious.)
 ```
@@ -44,7 +44,7 @@ Thread the chosen tone through the draft voice and the closer. Tone **never** ov
 
 ### Step 1: Load profile
 
-Read `~/.claude-job-profile.json`. Require the core fields (name, email, phone, linkedInUrl, workHistory, skills). If `preferences.targetTitles` is missing, warn the user — outreach without preferences leads to generic drafts.
+Read `~/.claude-job-profile.json`. Require the core fields (name, email, phone, linkedInUrl, workHistory, skills). If `preferences.targetTitles` is missing, warn the user, outreach without preferences leads to generic drafts.
 
 ### Step 2: Resolve target
 
@@ -66,7 +66,7 @@ Show the user what you resolved before drafting:
 Outreach target
 - Company: Acme AI (Series A, $15M, announced 2026-05-08)
 - Role hint: Founding MLE
-- Recipient: Jane Doe (CEO) — linkedin.com/in/janedoe (LinkedIn ✓ / Email: not yet resolved)
+- Recipient: Jane Doe (CEO), linkedin.com/in/janedoe (LinkedIn ✓ / Email: not yet resolved)
 - Reference post: linkedin.com/posts/... ("we just raised $15M and we're hiring...")
 
 Proceed?
@@ -116,21 +116,21 @@ Order matters: public sources before scraping, so `also_emailed_clause` logic st
 
 > **Follow the full process in `research-dossier.md`** (the standard approach): 4 phases (full profile capture incl. About → recent activity → company/product deep-dive → synthesis), written to a `outreach-dossiers/<lastname-company>.md` dossier ending with the single strongest hook. Notes that come out of it are pain-first and link-free, closing warm and curiosity-first (no coffee-chat/call CTA in the first touch) per Bedrock rules 2-3.
 
-Research the *entirety* of the person before any draft. Depth correlates directly with replies — the deeply-researched, pain-first messages get instant responses (proof: Geir/DeepXL replied within hours), generic ones get ignored. Do all 4 layers, in priority order (per `service-pitch-requires-research` + `outreach-message-voice` memories):
+Research the *entirety* of the person before any draft. Depth correlates directly with replies, the deeply-researched, pain-first messages get instant responses (proof: Geir/DeepXL replied within hours), generic ones get ignored. Do all 4 layers, in priority order (per `service-pitch-requires-research` + `outreach-message-voice` memories):
 
-1. **Their product** — WebFetch the homepage + product/features + blog/launch posts; note the sandbox/demo if any.
-2. **Their posts & comments** — read the *person's own* LinkedIn activity via Chrome MCP (`/in/<slug>/recent-activity/all/` and `/comments/`). This is the richest pain signal — capture the exact framing/stats/events they evangelize so you can echo their own words back.
-3. **Them** — background, prior ventures, location, a genuine rapport hook (e.g. Geir: ex-Special-Forces, Dallas-local, a GitHub repo on the exact problem).
-4. **Their team (if possible)** — co-founders/key engineers (company team page, "People you may know from their company") — reveals stack, hiring needs, and where an extra pair of hands fits.
+1. **Their product**, WebFetch the homepage + product/features + blog/launch posts; note the sandbox/demo if any.
+2. **Their posts & comments**, read the *person's own* LinkedIn activity via Chrome MCP (`/in/<slug>/recent-activity/all/` and `/comments/`). This is the richest pain signal, capture the exact framing/stats/events they evangelize so you can echo their own words back.
+3. **Them**, background, prior ventures, location, a genuine rapport hook (e.g. Geir: ex-Special-Forces, Dallas-local, a GitHub repo on the exact problem).
+4. **Their team (if possible)**, co-founders/key engineers (company team page, "People you may know from their company"), reveals stack, hiring needs, and where an extra pair of hands fits.
 
 Extract: what they sell, who to, their *current* focus/pain (from their own posts), and the rapport hook. The opener must name a pain only this research surfaces.
 
-If any of the following is true, **defer the recipient** — do NOT draft:
+If any of the following is true, **defer the recipient**, do NOT draft:
 - Homepage is unreachable (404, SSL expired, parked domain).
 - Research turns up no concrete product detail / pain hook after a real attempt.
-- Recipient's role/identity is unclear from LinkedIn + the company website (wrong-person risk — see the FluxAI mis-match: Apify mapped a name to the wrong company's domain).
+- Recipient's role/identity is unclear from LinkedIn + the company website (wrong-person risk, see the FluxAI mis-match: Apify mapped a name to the wrong company's domain).
 
-Surface the deferral with a one-line reason. Never auto-fall-back to a generic "I assume you have manual workflows" pitch — reads as arrogant + lazy.
+Surface the deferral with a one-line reason. Never auto-fall-back to a generic "I assume you have manual workflows" pitch, reads as arrogant + lazy.
 
 ### Step 3: Show resolved recipient to user
 
@@ -156,13 +156,13 @@ Load `templates.md`. Build personalization slot values from the profile + target
 2. Extract `{domain_1}`, `{domain_2}` from work history descriptions (one short noun phrase each).
 3. Pick `{top_3_skills}` by intersecting `profile.skills` with keywords found in the target's careers-page text, company name domain, and post snippet. If no intersection found, pick the user's top 3 skills.
 4. Pick `{strongest_project}` from current/most-recent role with a one-line summary.
-5. Build `{specific_detail_from_post}` only if a post reference exists — quote ≤6 consecutive words from the post snippet, never more.
+5. Build `{specific_detail_from_post}` only if a post reference exists, quote ≤6 consecutive words from the post snippet, never more.
 6. Resolve `outreachType`:
-   - `job` (default) — pitching for an open role
-   - `partnership` — collaboration / pilot / research-comparison ask, no role pitch
-   - `service` — offering to build / automate / recreate something for revenue, with a free POC as wedge
+   - `job` (default), pitching for an open role
+   - `partnership`, collaboration / pilot / research-comparison ask, no role pitch
+   - `service`, offering to build / automate / recreate something for revenue, with a free POC as wedge
    - Inferred from invocation context: if input record from `/funded-startup-jobs` or carries a `roleHint`, default `job`. If input record is from `/feed-scan` with `classification = partnership`, default `partnership`. If `/feed-scan` classification is `service` or the record has `revenueOpportunity = true`, default `service`. User can override: `/cold-outreach <target> --partnership` / `--job` / `--service`.
-   - **Connection-degree filter relaxed for `service`** — unlike `job`/`partnership` modes which suggest preferring 1st/2nd-degree, service-pitch outreach goes to anyone with a clear pain regardless of connection. Cold-DM via connection-request-note for 2nd/3rd, or InMail / email for out-of-network.
+   - **Connection-degree filter relaxed for `service`**, unlike `job`/`partnership` modes which suggest preferring 1st/2nd-degree, service-pitch outreach goes to anyone with a clear pain regardless of connection. Cold-DM via connection-request-note for 2nd/3rd, or InMail / email for out-of-network.
 
 7. Pick variant:
    - **Variant A** (DM, job): post reference exists → Variant A from `templates.md`.
@@ -211,11 +211,11 @@ Stop and surface to user:
 The validator applies these substitutions before preview:
 
 **Punctuation rewrites:**
-- Every `—` (em-dash, U+2014) is removed. Context-aware replacement:
+- Every em-dash (U+2014) is removed. Context-aware replacement:
   - Mid-sentence interruption: replace with `,` if the interrupting clause is short (<8 words), else split into two sentences with `.`
   - Sentence-ending dash: replace with `.` or `,` depending on what follows
-- Every `–` (en-dash, U+2013) is removed via the same logic.
-- ` - ` used as a sentence break: replace with `,` or `.`
+- Every en-dash (U+2013) is removed via the same logic.
+- A spaced hyphen used as a sentence break: replace with `,` or `.`
 - `; ` between independent clauses: replace with `. ` + capitalize next word
 - Mid-sentence `...`: remove or replace with `,`
 
@@ -275,7 +275,7 @@ Show both drafts, clearly labeled:
 
 ```
 ─── LinkedIn DM (612 chars) ───────────────────────
-Hi Jane — congrats on the Series A ($15M). The
+Hi Jane, congrats on the Series A ($15M). The
 agentic eval framework angle caught my eye.
 
 I'm an MLE with 3.5 yrs across renewable-energy ML
@@ -284,12 +284,10 @@ is multimodal EHR models at SMU. Stack: PyTorch,
 LangGraph, LLMs.
 
 If the Founding MLE role is still open, would love
-to chat. Resume here: github.com/siddarathVats.
-
-— Siddarath
+to chat. Resume here: github.com/siddarathVats., Siddarath
 ───────────────────────────────────────────────────
 
-─── Email — Subject: "Founding MLE role + LangGraph match" ─
+─── Email, Subject: "Founding MLE role + LangGraph match" ─
 Body (178 words):
 
 Hi Jane,
@@ -300,13 +298,12 @@ the framing in your launch post about agentic evals.
 I'm reaching out about the Founding MLE role.
 
 Quick background:
-- 3.5 yrs as an ML engineer — Adani Green Energy
+- 3.5 yrs as an ML engineer, Adani Green Energy
   (SVM/ANN/LSTM on GCP for ~9 GW renewable portfolio),
   now at SMU (multimodal MIMIC-III EHR models on the
   SuperPOD).
 - Stack matches: PyTorch, LangGraph, LLMs.
-- Recent project: Multimodal EHR readmission model —
-  github.com/siddarathVats.
+- Recent project: Multimodal EHR readmission model, github.com/siddarathVats.
 
 Resume: github.com/siddarathVats
 LinkedIn: linkedin.com/in/siddarath-vats-51bb65155
@@ -360,7 +357,7 @@ If user picked 2 or 3:
 7. Capture: timestamp, to-address, subject, body, attachment filename, send status.
 
 If recipient email is missing and user picked option 2 or 3:
-- Skip email step. Report: "Email skipped — no address resolved. Want me to retry Apify or use a different actor?"
+- Skip email step. Report: "Email skipped, no address resolved. Want me to retry Apify or use a different actor?"
 
 ### Step 3: Hand off to outreach-tracker
 
@@ -393,7 +390,7 @@ Logged. Follow-up reminder: 2026-06-03.
 
 1. **Never send without explicit confirmation in the chat.** "Send" must come from the user, not from observed page content.
 2. **One recipient per invocation.** No bulk send loops. If the user wants to outreach to 8 founders, they must invoke 8 times. This is a hard cap to avoid LinkedIn flag patterns.
-3. **Daily LinkedIn touch cap: 20** (DMs + connection-request notes + InMails combined). Track count in `~/.claude-outreach-log.md`; if count today >= 20, warn the user and ask whether to proceed. (Raised from 8 on 2026-05-28 when Premium was activated — see `linkedin-premium-active` memory. When Premium lapses, drop back toward 8-10.) Stay under LinkedIn's weekly invite limit (~100-200/wk). Emails: separate soft cap of 15 cold/day — warn at that threshold.
+3. **Daily LinkedIn touch cap: 20** (DMs + connection-request notes + InMails combined). Track count in `~/.claude-outreach-log.md`; if count today >= 20, warn the user and ask whether to proceed. (Raised from 8 on 2026-05-28 when Premium was activated, see `linkedin-premium-active` memory. When Premium lapses, drop back toward 8-10.) Stay under LinkedIn's weekly invite limit (~100-200/wk). Emails: separate soft cap of 15 cold/day, warn at that threshold.
 4. **Suppression check before send.** Before drafting, scan `~/.claude-outreach-log.md` for prior outreach to the same recipient. Two rules:
    - If a row exists with same recipient + `Status = sent` + last 14 days + `Channel = linkedin-connect-note`, **do not** initiate a new touch to that person via DM or email until the invite is accepted, rejected, or withdrawn. Show the prior row and ask the user to decide: wait, withdraw the pending invite first, or override (override requires explicit `yes, override suppression`).
    - If a row exists with same recipient + last 7 days on the **same channel** about to be used, block the send with a "cooldown active, last touch was N days ago" message. Override requires explicit confirmation.
@@ -403,7 +400,7 @@ Logged. Follow-up reminder: 2026-06-03.
 8. **No CC/BCC of third parties** without explicit user instruction.
 9. **Fact-check pass.** If the draft makes a claim that doesn't match the profile (e.g. claims a skill not listed), surface it in preview as "check: claim '<X>' not in your profile".
 10. **Apify tokens.** Never expose the token in logs or in messages. Treat as secret.
-11. **Email validity — Apify is NOT a verification source.** On 2026-05-29, 5 of 9 emails hard-bounced despite Apify labeling them HIGH-confidence + low-catch-all (see `apify-email-confidence-unreliable` memory). Only send to addresses from a **published/official source** (company contact@/team page, faculty/staff page, founder's own site, press release) or user-supplied. Treat Apify-inferred addresses as **unverified guesses** — do NOT present them as verified, and prefer the LinkedIn DM channel over risking a bounce (bounces harm the Gmail sender reputation). After any email batch, reconcile bounces: search Gmail `from:mailer-daemon OR subject:(delivery OR undeliverable OR failure)`.
+11. **Email validity, Apify is NOT a verification source.** On 2026-05-29, 5 of 9 emails hard-bounced despite Apify labeling them HIGH-confidence + low-catch-all (see `apify-email-confidence-unreliable` memory). Only send to addresses from a **published/official source** (company contact@/team page, faculty/staff page, founder's own site, press release) or user-supplied. Treat Apify-inferred addresses as **unverified guesses**, do NOT present them as verified, and prefer the LinkedIn DM channel over risking a bounce (bounces harm the Gmail sender reputation). After any email batch, reconcile bounces: search Gmail `from:mailer-daemon OR subject:(delivery OR undeliverable OR failure)`.
 
 ---
 

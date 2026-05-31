@@ -6,7 +6,7 @@ allowed-tools: Read, Write, Bash, mcp__claude-in-chrome__*
 
 # LinkedIn Feed Scan
 
-Wall-clock-timeboxed scroll through `linkedin.com/feed/`. The user's feed already filters for people/companies they care about — this skill mines that signal for hiring posts and partnership/collab opportunities, then routes both to `/cold-outreach`.
+Wall-clock-timeboxed scroll through `linkedin.com/feed/`. The user's feed already filters for people/companies they care about, this skill mines that signal for hiring posts and partnership/collab opportunities, then routes both to `/cold-outreach`.
 
 ---
 
@@ -43,7 +43,7 @@ Feed Scan
 
 1. Use Chrome MCP `tabs_create_mcp` → new tab.
 2. Navigate to `https://www.linkedin.com/feed/`.
-3. Verify logged in via `read_page` — look for the "Start a post" composer.
+3. Verify logged in via `read_page`, look for the "Start a post" composer.
 4. If not logged in: stop. Instruct the user to log in. Do not proceed.
 
 ---
@@ -147,10 +147,10 @@ A post is classified `service` if it matches the pain-signal regex. Vertical-fit
 ### `service` disqualifiers (in addition to the global ones)
 
 Drop or de-prioritize if the body contains:
-- `pro bono only`, `volunteer`, `unpaid`, `internship-style` — not paid work.
-- `looking for a co-founder` — that's partnership, not service.
-- `we already have a contractor / vendor / team for this` — closed door.
-- `looking for senior staff engineers` — that's job-hire.
+- `pro bono only`, `volunteer`, `unpaid`, `internship-style`, not paid work.
+- `looking for a co-founder`, that's partnership, not service.
+- `we already have a contractor / vendor / team for this`, closed door.
+- `looking for senior staff engineers`, that's job-hire.
 
 ### Disqualify
 
@@ -160,7 +160,7 @@ Drop the post if body contains any of (case-insensitive):
 - `course`, `bootcamp`, `cohort`, `webinar`, `newsletter` (content marketing, not opportunity)
 - "Repost" / "Reposted" without new content from the user
 - Pure congratulations posts ("Excited to announce I joined X")
-- Job board aggregator reposts (Wellfound, Y Combinator news, etc. — user already gets these via `/funded-startup-jobs`)
+- Job board aggregator reposts (Wellfound, Y Combinator news, etc., user already gets these via `/funded-startup-jobs`)
 
 ### Title-keyword match (for job posts)
 
@@ -218,7 +218,7 @@ Sort descending. Drop anything below `--min-score`.
 
 ```
 ============================================================
-  Feed Scan — 2026-05-27  (18m 42s elapsed)
+  Feed Scan, 2026-05-27  (18m 42s elapsed)
 ============================================================
   Posts seen: 247 | Job-classified: 19 | Partnership: 11 | Both: 4
   After dedupe + score floor (50): 22
@@ -227,8 +227,8 @@ Sort descending. Drop anything below `--min-score`.
 
 Score | Type      | Poster              | Conn | Topic / Role                          | Posted
 ----- | --------- | ------------------- | ---- | ------------------------------------- | -------
-  88  | job       | Jane Doe (CEO Acme) | 2nd  | Founding MLE — Series A, remote US    | 6h ago
-  82  | partner   | Sam Ko (Bolt)       | 1st  | Looking for design partners — agents  | 1d ago
+  88  | job       | Jane Doe (CEO Acme) | 2nd  | Founding MLE, Series A, remote US    | 6h ago
+  82  | partner   | Sam Ko (Bolt)       | 1st  | Looking for design partners, agents  | 1d ago
   78  | both      | Lin Park (Verdant)  | 2nd  | Hiring 2 MLEs AND pilot partners      | 2d ago
   ...
 
@@ -239,14 +239,14 @@ Score | Type      | Poster              | Conn | Topic / Role                   
 
 ### Markdown file
 
-`~/.claude-feed-scans/feed-{YYYY-MM-DD}.md` — create directory if missing. One section per post:
+`~/.claude-feed-scans/feed-{YYYY-MM-DD}.md`, create directory if missing. One section per post:
 
 ```markdown
-### 1. Jane Doe — Founding MLE at Acme AI (score: 88)
+### 1. Jane Doe, Founding MLE at Acme AI (score: 88)
 - **Type**: job
 - **Connection**: 2nd-degree
 - **Posted**: 2026-05-27 09:14 (6h ago)
-- **Post snippet**: "Series A closed last week — hiring 3 founding engineers..." (≤30 words, fair-use)
+- **Post snippet**: "Series A closed last week, hiring 3 founding engineers..." (≤30 words, fair-use)
 - **Post URL**: https://linkedin.com/feed/update/urn:li:activity:...
 - **Poster LinkedIn**: linkedin.com/in/janedoe
 - **Target company**: Acme AI
@@ -260,7 +260,7 @@ After saving, prompt:
 
 > {N} posts scored ≥ {threshold}. Want me to queue any of them for `/cold-outreach`? Reply with a number, "top 3", "top job", "top partnership", or "none".
 
-If `--auto-outreach` was set, automatically open `/cold-outreach` for the top 3 (one at a time, each with full preview + confirmation — the `--auto` flag only skips the queuing prompt, never the send confirmation).
+If `--auto-outreach` was set, automatically open `/cold-outreach` for the top 3 (one at a time, each with full preview + confirmation, the `--auto` flag only skips the queuing prompt, never the send confirmation).
 
 ---
 
@@ -270,7 +270,7 @@ If `--auto-outreach` was set, automatically open `/cold-outreach` for the top 3 
 2. **Wall-clock cap is hard.** Even if results are sparse, do not exceed `--time + 60s` (60s buffer for cleanup).
 3. **Stop on security challenge.** Any CAPTCHA, security check, or rate-limit modal aborts the scan immediately and reports to the user.
 4. **No credential entry.** If LinkedIn logs the user out mid-scroll, stop and tell them.
-5. **Copyright** — post snippets stored in the output file must be ≤30 words. Never reproduce full posts. Always store the source URL alongside the snippet.
+5. **Copyright**, post snippets stored in the output file must be ≤30 words. Never reproduce full posts. Always store the source URL alongside the snippet.
 6. **Dedupe across runs.** Maintain `~/.claude-feed-scans/seen-posts.txt` (one post URN per line, last 30 days). Skip post IDs in this file when classifying. This prevents re-surfacing the same post day after day.
 7. **No DM-from-feed.** Even when a 1st-degree connection's post is high-score, the skill does not DM directly. It hands off to `/cold-outreach` with full preview and confirmation. The skill enforces this even if the user says "just DM them".
 
@@ -286,7 +286,7 @@ User: /feed-scan --time 10 --types partnership
 Claude: [10 min scroll, partnership posts only]
 
 User: /feed-scan --time 30 --auto-outreach
-Claude: [30 min scroll, then auto-opens /cold-outreach for top 3 — each still requires explicit send confirmation]
+Claude: [30 min scroll, then auto-opens /cold-outreach for top 3, each still requires explicit send confirmation]
 
 User: /feed-scan --min-score 70
 Claude: [Default 20 min, but only outputs posts scoring 70+]
@@ -299,6 +299,6 @@ Claude: [Default 20 min, but only outputs posts scoring 70+]
 | Source | Strength | Weakness |
 |--------|----------|----------|
 | `/funded-startup-jobs` | Surfaces companies you don't follow yet; mines VC accounts + Crunchbase | Doesn't see what's in your network |
-| `/feed-scan` | Mines signal from people you already follow / are connected to — highest reply rate | Limited to what's in your feed; misses big news you don't follow |
+| `/feed-scan` | Mines signal from people you already follow / are connected to, highest reply rate | Limited to what's in your feed; misses big news you don't follow |
 
 Run both in the same week for full coverage. `/feed-scan` is the higher-leverage one because 1st/2nd-degree outreach beats cold outreach 5-10x on reply rate.

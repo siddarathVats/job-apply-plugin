@@ -14,7 +14,7 @@ Owns the outreach log at `~/.claude-outreach-log.md`. Every send by `/cold-outre
 
 **Path**: `~/.claude-outreach-log.md`
 
-**Format**: Markdown with a single table. Each row is one outreach event (one channel per row — a "DM + email" send produces two rows). Append-only; never rewrite history except for the "Reply received" / "Status" columns.
+**Format**: Markdown with a single table. Each row is one outreach event (one channel per row, a "DM + email" send produces two rows). Append-only; never rewrite history except for the "Reply received" / "Status" columns.
 
 ### Schema
 
@@ -23,8 +23,8 @@ Owns the outreach log at `~/.claude-outreach-log.md`. Every send by `/cold-outre
 
 | ID | Date | Company | Recipient | Title | Channel | Role hint | Status | Follow-up | Reply | Notes |
 |----|------|---------|-----------|-------|---------|-----------|--------|-----------|-------|-------|
-| 001 | 2026-05-27 | Acme AI | Jane Doe | CEO | linkedin-dm | Founding MLE | sent | 2026-06-03 | — | reference: a16z post |
-| 002 | 2026-05-27 | Acme AI | Jane Doe | CEO | email | Founding MLE | sent | 2026-06-03 | — | jane@acme.ai |
+| 001 | 2026-05-27 | Acme AI | Jane Doe | CEO | linkedin-dm | Founding MLE | sent | 2026-06-03 |, | reference: a16z post |
+| 002 | 2026-05-27 | Acme AI | Jane Doe | CEO | email | Founding MLE | sent | 2026-06-03 |, | jane@acme.ai |
 ```
 
 **Status values**: `sent` | `replied` | `bounced` | `no-reply` (auto-set after 14 days from follow-up with no `replied` flag) | `meeting-set` | `dead`
@@ -37,7 +37,7 @@ Owns the outreach log at `~/.claude-outreach-log.md`. Every send by `/cold-outre
 
 ## Commands
 
-### `log` — append a new row
+### `log`, append a new row
 
 Invoked by `/cold-outreach` after a successful send, or manually by the user.
 
@@ -52,22 +52,22 @@ User: /outreach-tracker log Acme AI, Jane Doe, CEO, linkedin-dm, Founding MLE
 Claude: Logged row 003. Follow-up: 2026-06-03.
 ```
 
-### `list` — show pending or all
+### `list`, show pending or all
 
 Default: show rows with `Status = sent` and `Follow-up <= today + 3` (i.e. upcoming/overdue follow-ups).
 
 Filters supported:
-- `list all` — every row
-- `list pending` — `Status` in {sent, no-reply}
-- `list replied` — `Status` in {replied, meeting-set}
-- `list overdue` — `Status = sent` and `Follow-up < today`
-- `list today` — `Follow-up = today`
-- `list company <name>` — all rows for that company
+- `list all`, every row
+- `list pending`, `Status` in {sent, no-reply}
+- `list replied`, `Status` in {replied, meeting-set}
+- `list overdue`, `Status = sent` and `Follow-up < today`
+- `list today`, `Follow-up = today`
+- `list company <name>`, all rows for that company
 
 Output format:
 
 ```
-Outreach — pending / overdue
+Outreach, pending / overdue
 ─────────────────────────────────────────────────────
 ID  | Date       | Company        | Recipient   | Channel | Follow-up   | Days
 003 | 2026-05-20 | Acme AI        | Jane Doe    | dm      | 2026-05-27  | TODAY
@@ -77,7 +77,7 @@ ID  | Date       | Company        | Recipient   | Channel | Follow-up   | Days
 3 actions due. Run `/outreach-tracker followup <ID>` to draft a follow-up.
 ```
 
-### `reply` — mark a row as replied
+### `reply`, mark a row as replied
 
 ```
 User: /outreach-tracker reply 003
@@ -86,13 +86,13 @@ User: meeting-set, scheduled for Friday
 Claude: Updated row 003. Status: meeting-set. Note: "scheduled for Friday".
 ```
 
-### `followup <ID>` — hand off to /cold-outreach with prior context
+### `followup <ID>`, hand off to /cold-outreach with prior context
 
 1. Read row by ID.
 2. Read the original `messageHashes` (stored in a sidecar `~/.claude-outreach-log/messages/<ID>.json`) so the follow-up doesn't repeat content.
 3. Hand off to `/cold-outreach` with `follow-up-mode` set: drafts a shorter "bumping this in case it got buried" message that references the original send without quoting it.
 
-### `daily` — yesterday snapshot
+### `daily`, yesterday snapshot
 
 The single most useful command for outreach hygiene. Run every morning to see what happened the previous day across all channels.
 
@@ -161,20 +161,20 @@ This is the data that drives every other tracker decision:
 - If a recipient is logged as "rejected/gone" the suppression rule auto-blocks new touches to that person for 90 days unless overridden.
 - If reply rate is trending down week-over-week, the user should reconsider the template.
 
-### `bulk-status` — sweep stale rows
+### `bulk-status`, sweep stale rows
 
-Run on demand. For every row with `Status = sent` and `Follow-up < today - 14 days`, set `Status = no-reply`. Report count.
+Run on demand. For every row with `Status = sent` and `Follow-up < today, 14 days`, set `Status = no-reply`. Report count.
 
 ```
 User: /outreach-tracker bulk-status
 Claude: 3 rows aged out to no-reply. Run `/outreach-tracker list pending` to see.
 ```
 
-### `withdraw-stale` — LinkedIn invite hygiene
+### `withdraw-stale`, LinkedIn invite hygiene
 
 Sweeps pending LinkedIn connection invitations that have aged out, so your invite acceptance rate doesn't tank.
 
-**Why this matters**: pending invites that sit > ~3 weeks unaccepted (and never explicitly rejected) still count against your LinkedIn acceptance rate. Once that rate drops below ~40-50%, LinkedIn throttles your weekly invite limit and may eventually require email-verified invites — which kills cold outreach entirely.
+**Why this matters**: pending invites that sit > ~3 weeks unaccepted (and never explicitly rejected) still count against your LinkedIn acceptance rate. Once that rate drops below ~40-50%, LinkedIn throttles your weekly invite limit and may eventually require email-verified invites, which kills cold outreach entirely.
 
 #### Flow
 
@@ -204,7 +204,7 @@ Sent invitations older than 21 days
 Options:
   a) Withdraw all 4
   b) Withdraw selected (e.g. "1,3" or "1-3")
-  c) Skip — review manually
+  c) Skip, review manually
   d) Cancel
 ```
 
@@ -230,23 +230,23 @@ Acceptance ratio expected to improve once the dust settles (~24-48h).
 | 2026-05-27 | 21d       | 4         | 0      |
 ```
 
-This log is **only** the sweep summary — recipient names are NOT stored (no reason to keep that data once the invite is gone).
+This log is **only** the sweep summary, recipient names are NOT stored (no reason to keep that data once the invite is gone).
 
 #### Safety
 
 - **Hard cap 50 per sweep.** If more than 50 invites match, ask the user to narrow the threshold or do it in batches. LinkedIn rate-limits bulk withdrawals.
-- **Never withdraw an invite the user explicitly told you to send.** If the recipient appears in `~/.claude-outreach-log.md` with `Channel = linkedin-connect-note` and `Status = sent`, mark it but require extra confirmation: "This was a tracked outreach send — withdraw anyway?"
+- **Never withdraw an invite the user explicitly told you to send.** If the recipient appears in `~/.claude-outreach-log.md` with `Channel = linkedin-connect-note` and `Status = sent`, mark it but require extra confirmation: "This was a tracked outreach send, withdraw anyway?"
 - **No auto-mode.** Even with `--auto` flag (don't add one), the skill must show the preview first.
 
-### `check-suppression` — pre-send guard, called by /cold-outreach
+### `check-suppression`, pre-send guard, called by /cold-outreach
 
 Internal command used by `/cold-outreach` before drafting. Returns one of:
 
-- `clear` — no prior outreach to this recipient, proceed.
-- `pending-invite:<row_id>` — a LinkedIn connect-note to this person is still pending (sent <= 14 days ago, still in their sent invitations). Block new touches via any channel.
-- `recent-touch:<row_id>` — same channel was used in the last 7 days. Block this channel; other channels still open.
-- `rejected-recently:<row_id>` — their invite vanished from sent and they're not in recently-added (likely rejected/withdrawn). Block new touches for 90 days unless overridden.
-- `auto-no-reply:<row_id>` — they've been marked `no-reply` after the standard 14-day post-followup window. New touches allowed but the user should know.
+- `clear`, no prior outreach to this recipient, proceed.
+- `pending-invite:<row_id>`, a LinkedIn connect-note to this person is still pending (sent <= 14 days ago, still in their sent invitations). Block new touches via any channel.
+- `recent-touch:<row_id>`, same channel was used in the last 7 days. Block this channel; other channels still open.
+- `rejected-recently:<row_id>`, their invite vanished from sent and they're not in recently-added (likely rejected/withdrawn). Block new touches for 90 days unless overridden.
+- `auto-no-reply:<row_id>`, they've been marked `no-reply` after the standard 14-day post-followup window. New touches allowed but the user should know.
 
 Input: recipient name + LinkedIn URL + email + channel about to be used.
 
@@ -254,7 +254,7 @@ Returns the status enum plus the conflicting row ID if any. `/cold-outreach` dec
 
 This command does not modify the log. It's a read-only query.
 
-### `stats` — quick metrics
+### `stats`, quick metrics
 
 ```
 User: /outreach-tracker stats
@@ -279,7 +279,7 @@ For each row, store the actual message text at `~/.claude-outreach-log/messages/
   "channel": "linkedin-dm",
   "to": "linkedin.com/in/janedoe",
   "subject": null,
-  "body": "Hi Jane — congrats on...",
+  "body": "Hi Jane, congrats on...",
   "sentAt": "2026-05-27T15:30:00",
   "referencePost": "https://linkedin.com/posts/...",
   "draftVariant": "A"

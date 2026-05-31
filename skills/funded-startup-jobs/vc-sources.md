@@ -1,10 +1,10 @@
-# VC & Accelerator Sources — Curated List
+# VC & Accelerator Sources, Curated List
 
 Used by `/funded-startup-jobs`. Keep this file the single source of truth for VC handles and job-board URLs so the skill stays current without code edits.
 
 ---
 
-## Tier 1 — VC Job Boards (web pages, scrape via Playwright/WebFetch)
+## Tier 1, VC Job Boards (web pages, scrape via Playwright/WebFetch)
 
 | VC | Job Board URL | Notes |
 |----|---------------|-------|
@@ -34,7 +34,7 @@ Used by `/funded-startup-jobs`. Keep this file the single source of truth for VC
 
 ---
 
-## Tier 2 — VC LinkedIn Handles (scroll feed via Chrome MCP)
+## Tier 2, VC LinkedIn Handles (scroll feed via Chrome MCP)
 
 Use `https://www.linkedin.com/company/<handle>/posts/` to read recent posts. Look for posts with the patterns: "we just raised", "is hiring", "portfolio company X raised", "join <company>".
 
@@ -63,7 +63,7 @@ Use `https://www.linkedin.com/company/<handle>/posts/` to read recent posts. Loo
 
 ---
 
-## Tier 3 — Partner LinkedIn Profiles (often share hiring threads from portfolio cos)
+## Tier 3, Partner LinkedIn Profiles (often share hiring threads from portfolio cos)
 
 Add as you discover them. Example seeds:
 
@@ -130,4 +130,4 @@ Action: feed these to `/funded-startup-jobs vc-boards` (or paste a specific demo
 
 - When a VC's job-board URL 404s, update this file before re-running the skill.
 - Add new VCs as the user surfaces them via shared LinkedIn posts.
-- LinkedIn handles drift — if a feed returns the company page instead of posts, verify the handle still resolves.
+- LinkedIn handles drift, if a feed returns the company page instead of posts, verify the handle still resolves.
